@@ -374,6 +374,9 @@ iSCSITarget_stop() {
 		;;
 	    tgt)
 		tid="${OCF_RESKEY_tid}"
+		# Update target offline
+		ocf_run tgtadm --lld iscsi --op update --mode target \
+			--tid ${tid} --name state --value offline
 		# Close existing connections. There is no other way to
 		# do this in tgt than to parse the output of "tgtadm --op
 		# show".
